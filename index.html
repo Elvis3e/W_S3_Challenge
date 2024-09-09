@@ -227,15 +227,16 @@
 
         work() {
           let current = this.ants.length
-          if (!this.ants.length) {
+          if (this.ants.length === 0) {
             return "No ants here. Did you work them to death?";
+            
           }
           
           this.ants.map((x) => {
             x.health -= 20;
             if (x.health <= 0) {
               this.ants.splice(this.ants.indexOf(x));
-              // console.log(this.ants.indexOf(x));
+              
             }
           });
 
