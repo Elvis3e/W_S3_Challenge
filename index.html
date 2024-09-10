@@ -84,18 +84,11 @@
 
         // 🧠 Implement a `getEveryNth` method which takes an int `n` and returns an array with the ints at position 0, n, n + n, n + n + n, etc
         getEveryNth(num) {
-          let arr = [this.ints[0]]
-          let i = num
-          while (this.ints[i] != null) {
-            arr.push(this.ints[i])
-            i = i + num
-            console.log(arr);
-            
-        
+          let arr = [];
+          for (let i = 0; i < this.ints.length; i += num) {
+            arr.push(this.ints[i]);
           }
-            
-          console.log(arr);
-          return arr
+          return arr;
         }
         // 🧠 Implement a `getAllReversed` method which returns the ints in reverse order
         getAllReversed() {
@@ -226,31 +219,44 @@
         }
 
         work() {
-          let current = this.ants.length
-          if (current === 0) {
-            return "No ants here. Did you work them to death?";
-            
-          }
-          
-          this.ants.map((x) => {
+          let current = `${this.ants.length} ants starting work!`;
+          let ripAnts =
+            this.ants.length === 0
+              ? "No ants here. Did you work them to death?"
+              : current;
+
+          this.ants = this.ants.map((x) => {
             x.health -= 20;
-            if (x.health <= 0) {
-              this.ants.splice(this.ants.indexOf(x));
-              
-            }
+            return x;
           });
 
-          return `${current} ants starting work!`;
+          this.ants = this.ants.filter((ant) => ant.health > 0);
+          return ripAnts;
+
+          // let current = this.ants.length
+          // if (!this.ants.length) {
+          //   return "No ants here. Did you work them to death?";
+          // }
+
+          // this.ants.map((x) => {
+          //   x.health -= 20;
+          //   if (x.health <= 0) {
+          //     this.ants.splice(this.ants.indexOf(x));
+          //     // console.log(this.ants.indexOf(x));
+          //   }
+          // });
+
+          // return `${current} ants starting work!`;
         }
         feed(antFood) {
-            const antsToFeed = this.ants.filter((x) => x.name === antFood);
-            if (antsToFeed.length === 0)return `${antFood} not found!`
-            antsToFeed.forEach((x) => {} )
-            antsToFeed.map((x) => {
-              x.health += 15
-            } );
-            return "Yum!"
-            // console.log(antFood, antsToFeed);
+          const antsToFeed = this.ants.filter((x) => x.name === antFood);
+          if (antsToFeed.length === 0) return `${antFood} not found!`;
+          antsToFeed.forEach((x) => {});
+          antsToFeed.map((x) => {
+            x.health += 15;
+          });
+          return "Yum!";
+          // console.log(antFood, antsToFeed);
         }
 
         // 🧠 Instances of AntFarm have an `ants` property holding an array of ants:
